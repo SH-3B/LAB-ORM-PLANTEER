@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="contact-messages-card">
+    <h1>Messages from Users</h1>
+
+    {% if messages %}
+    <div class="contact-messages-list">
+        <ul>
+            {% for message in messages %}
+            <li class="contact-message">
+                <div class="contact-message-header">
+                    <div class="sender-info">
+                        <div class="avatar">
+                            <i class="fa fa-user-circle"></i>
+                        </div>
+                        <div class="sender-details">
+                            <strong>{{ message.name }}</strong>
+                            <p>{{ message.email }}</p>
+                        </div>
+                    </div>
+                    <span class="message-date">{{ message.created_at }}</span>
+                </div>
+                <div class="message-content">
+                    <h3>Subject: {{ message.subject }}</h3>
+                    <p>{{ message.message }}</p>
+                </div>
+
+               
+                <a href="{% url 'reply_contact_message' message.id %}" class="reply-link">Reply</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% else %}
+    <p>No messages available.</p>
+    {% endif %}
+</div>
+{% endblock %}

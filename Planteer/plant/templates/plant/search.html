@@ -1,0 +1,52 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<br>
+<h1 class="search-title">Search Plants</h1>
+
+<form method="GET" action="{% url 'plant:search' %}" class="search-form">
+    <div class="input-and-buttons">
+        <input type="text" name="query" placeholder="Search plants..." value="{{ query }}" class="search-input">
+
+        <div class="button-container">
+            <button type="submit" class="search-btn fa fa-search"></button>
+            <button type="button" class="clear-btn" onclick="clearSearch()">Clear</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    function clearSearch() {
+        // Clear the search input field and redirect to the search page without the query
+        document.querySelector('[name="query"]').value = "";
+        window.location.href = "{% url 'plant:search' %}";
+    }
+</script>
+
+
+{% if plants %}
+    <ul style="padding-top: 20px;">
+        {% for plant in plants %}
+        {% endfor %}
+    </ul>
+
+
+    <div class="plant-list">
+        {% for plant in plants %}
+            <div class="plant-card">
+                <div class="plant-card-image">
+                    <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+                </div>
+                <div class="plant-card-body">
+                    <h3><a href="{% url 'plant:plant_detail' plant.id %}">{{ plant.name }}</a></h3>
+                    <p>{{ plant.description|truncatewords:20 }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% else %}
+    <p style="text-align: center; padding-top: 20px; padding-bottom: 20px;">No results found for "{{ query }}".</p>
+{% endif %}
+
+{% endblock %}
+

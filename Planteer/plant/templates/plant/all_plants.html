@@ -1,0 +1,72 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+<br>
+<h1>All Plants</h1>
+
+<form method="GET" class="filter-form">
+    <div class="filter-row">
+        <div class="filter-group">
+            <label for="category" class="filter-label">Category</label>
+            <select name="category" id="category" class="custom-select">
+                <option value="">Select Category</option>
+                <option value="herb" {% if category_filter == 'herb' %}selected{% endif %}>Herb</option>
+                <option value="tree" {% if category_filter == 'tree' %}selected{% endif %}>Tree</option>
+                <option value="flower" {% if category_filter == 'flower' %}selected{% endif %}>Flower</option>
+                <option value="vegetable" {% if category_filter == 'vegetable' %}selected{% endif %}>Vegetable</option>
+                <option value="fruit" {% if category_filter == 'fruit' %}selected{% endif %}>Fruit</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="is_edible" class="checkbox-label">
+                <input type="checkbox" name="is_edible" value="true" {% if is_edible_filter == 'true' %}checked{% endif %} class="filter-checkbox" style="margin-top:29px;"> Edible
+            </label>
+        </div>
+
+        
+        <div class="filter-group">
+            <button type="submit" class="filter-btn" style="margin-top:29px;">Filter</button>
+        </div>
+    </div>
+</form>
+
+
+{% if plants %}
+<div class="plant-list">
+    {% for plant in plants %}
+        <div class="plant-card">
+            <div class="plant-card-image">
+                <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+            </div>
+            <div class="plant-card-body">
+                <h3><a href="{% url 'plant:plant_detail' plant.id %}">{{ plant.name }}</a></h3>
+                <p>{{ plant.description|truncatewords:20 }}</p>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+
+<div class="pagination">
+    <span class="step-links">
+        {% if plants.has_previous %}
+            <a href="?page=1{% if category_filter %}&category={{ category_filter }}{% endif %}{% if is_edible_filter %}&is_edible={{ is_edible_filter }}{% endif %}">&laquo; first</a>
+            <a href="?page={{ plants.previous_page_number }}{% if category_filter %}&category={{ category_filter }}{% endif %}{% if is_edible_filter %}&is_edible={{ is_edible_filter }}{% endif %}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ plants.number }} of {{ plants.paginator.num_pages }}.
+        </span>
+
+        {% if plants.has_next %}
+            <a href="?page={{ plants.next_page_number }}{% if category_filter %}&category={{ category_filter }}{% endif %}{% if is_edible_filter %}&is_edible={{ is_edible_filter }}{% endif %}">next</a>
+            <a href="?page={{ plants.paginator.num_pages }}{% if category_filter %}&category={{ category_filter }}{% endif %}{% if is_edible_filter %}&is_edible={{ is_edible_filter }}{% endif %}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% else %}
+    <p style="text-align: center; padding-top: 20px; padding-bottom: 20px;">No results found for the selected filters.</p>
+{% endif %}
+
+{% endblock %}

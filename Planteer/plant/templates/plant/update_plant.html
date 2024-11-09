@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="post-form">
+<h1>Edit {{ plant.name }}</h1>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <br>
+    <button type="submit">Save Changes</button>
+    <br><br><br>
+    <button><a href="{% url 'plant:plant_detail' plant.id %}" style="text-decoration: none; color: aliceblue;">Back to Plant Details</a></button>
+</form>
+</div>
+{% endblock %}

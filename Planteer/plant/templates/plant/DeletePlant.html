@@ -1,0 +1,25 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="confirmation-wrapper">
+    <div class="delete-confirmation-card">
+        <div class="plant-details">
+            <h1>Are you sure you want to delete "{{ plant.name }}"?</h1>
+            
+            <div class="plant-image">
+                <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+            </div>
+            
+            <p class="plant-description">{{ plant.description }}</p>
+        </div>
+        
+        <form method="POST">
+            {% csrf_token %}
+            <div class="button-container">
+                <button type="submit" class="delete-button">Yes, delete it</button>
+                <a href="{% url 'plant:plant_detail' plant.id %}" class="cancel-button">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

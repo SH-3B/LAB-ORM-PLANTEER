@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<br>
+<form method="POST" enctype="multipart/form-data" class="post-form">
+    <h2>Add a New Plant</h2>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <br><br>
+    <button type="submit">Add Plant</button>
+    <br><br>
+    <button><a href="{% url 'plant:all_plant' %}"  style="text-decoration: none; color: aliceblue;">Back to All Plants</a></button>
+</form>
+{% endblock %}
+ 

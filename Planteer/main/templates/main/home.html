@@ -1,0 +1,98 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+.featured-plants-section {
+    text-align: center;
+    padding: 50px 0;
+    position: relative;
+}
+
+.section-header {
+    position: relative;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.section-header h1 {
+    color: black;
+    padding: 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    position: absolute;
+    top: 15px;
+    left: 20px;
+}
+
+.section-header p {
+    color: #666;
+    padding: 0;
+    font-size: 17px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    position: absolute;
+    top: 70px;
+    left: 20px;
+}
+    </style>
+</head>
+
+<header>
+    <div class="banner">
+        <div class="container">
+            <h1 class="banner-title">
+                <span>Plan</span><span style="color: #f9f9f9;">teer</span>
+            </h1>
+            <p>Plant Database For Plant Lovers</p>
+            <form action="{% url 'plant:search' %}" method="get">
+                <input type="text" name="search" class="search1-input" placeholder="Search For Plants ...">
+                <button type="submit" class="search1-btn">
+                    <i class="fa fa-search"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+</header>
+
+<section class="featured-plants-section">
+    <div class="section-header">
+        <h1>Featured Plants</h1>
+        <p>Check out our featured plants!</p>
+        <a href="{% url 'plant:all_plant' %}" class="more-button"><b>More <i style='font-size:15px' class='fas'>&#xf061;</i></b></a>
+    </div>
+    <br><br><br>
+    {% if plants %}
+    <div class="plant-list">
+        {% for plant in plants %}
+        <div class="plant-card">
+            <div class="plant-card-image">
+                <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+            </div>
+            <div class="plant-card-body">
+                <h3><a href="{% url 'plant:plant_detail' plant.id %}" style="color: black;">{{ plant.name }}</a></h3>
+                <br>
+                <p>{{ plant.description|truncatewords:20 }}</p>
+                <br><br>
+                <a href="{% url 'plant:plant_detail' plant.id %}" class="btn btn-primary">See Details</a>
+                <br><br> <br>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No featured plants available.</p>
+    {% endif %}
+</section>
+
+{% endblock %}
+
+
+

@@ -1,0 +1,27 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="reply-message-card">
+    <h1 class="reply-header">Reply to Message: "{{ message.subject }}"</h1>
+    <div class="message-details">
+        <p><strong>From:</strong> {{ message.name }} ({{ message.email }})</p>
+        <p><strong>Message:</strong> {{ message.message }}</p>
+    </div>
+    <form method="POST" class="reply-form">
+        {% csrf_token %}
+        <div class="form-container">
+            <div class="form-group">
+                <label for="reply_message">Your Reply:</label>
+                <textarea id="reply_message" name="reply_message" rows="6" required placeholder="Enter your reply here..."></textarea>
+            </div>
+
+            <div class="button-container">
+                <button type="submit" class="submit-button">Send Reply</button>
+            </div>
+        </div>
+    </form>
+
+    <a href="{% url 'messages' %}" class="back-link">Back to Contact Messages</a>
+</div>
+{% endblock %}
+

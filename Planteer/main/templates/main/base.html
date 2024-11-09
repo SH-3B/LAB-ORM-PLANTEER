@@ -1,0 +1,55 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <ul class="topnav">
+    <li><a href="{% url 'plant:add_plant' %}" style="color: white; background: rgba(0, 0, 0, 0.714); border-radius: 20px;">Add Plant</a></li>
+    <li><a href="{% url 'contact' %}">Contact Us</a></li>
+    <li><a href="{% url 'plant:all_plant' %}">All Plants</a></li>
+    <li class="right"><a href="{% url 'home' %}">Planteer</a></li>
+  </ul>
+  <section>
+    {% block content %} {% endblock %}
+  </section>
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="footer-col">
+          <span class="footer-brand">Planteer</span>
+          <div class="social-links">
+            <a href="#"><i class="fa fa-facebook-f"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-youtube-play"></i></a>
+            <a href="#"><i class="fa fa-instagram"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Planteer</h4>
+          <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'plant:all_plant' %}">All Plants</a></li>
+            <li><a href="{% url 'plant:search' %}">Search Plants</a></li>
+          </ul>
+        </div>
+  
+       
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="{% url 'contact' %}">Contact Us</a></li>
+          </ul>
+        </div>
+  
+      </div>
+    </div>
+  </footer>
+  
+</body>
+</html>

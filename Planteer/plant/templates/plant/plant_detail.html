@@ -1,0 +1,33 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="plant-detail-container">
+    <div class="plant-detail">
+        <h1 class="plant-name">{{ plant.name }}</h1>
+        <img class="plant-image" src="{{ plant.image.url }}" alt="{{ plant.name }}">
+        <p class="plant-description">{{ plant.description }}</p>
+
+        <div class="plant-actions">
+            <a href="{% url 'plant:update_plant' plant.id %}" class="action-link" style="color: black;">Edit</a> | 
+            <a href="{% url 'plant:delete_plant' plant.id %}" class="action-link" style="color: black;">Delete</a>
+        </div>
+    </div>
+
+   
+    {% if related_plants %}
+        <div class="related-plants">
+            <h3>Related Plants</h3>
+            <div class="related-plants-container">
+                {% for related in related_plants %}
+                    <div class="related-plant-card">
+                        <h4 class="related-plant-name">{{ related.name }}</h4>
+                        <img class="related-plant-image" src="{{ related.image.url }}" alt="{{ related.name }}">
+                        <p class="related-plant-description">{{ related.description }}</p>
+                        <a href="{% url 'plant:plant_detail' related.id %}" class="related-plant-link" style="color: black;">View Details</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
